@@ -26,8 +26,6 @@ class Tristan {
             }
         }
 
-        console.log(roleTag);
-
         return roleTag;
     }
 }
