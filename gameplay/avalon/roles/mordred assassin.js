@@ -1,5 +1,3 @@
-const usernamesIndexes = require('../../../myFunctions/usernamesIndexes');
-
 class MordredAssassin {
     constructor(thisRoom) {
         this.thisRoom = thisRoom;

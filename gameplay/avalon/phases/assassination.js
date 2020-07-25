@@ -35,7 +35,7 @@ class Assassination {
                 }
                 // Check that the person making this request is the assassin
                 const indexOfRequester = usernamesIndexes.getIndexFromUsername(this.thisRoom.playersInGame, socket.request.user.username);
-                if (this.thisRoom.playersInGame[indexOfRequester].role.indexOf('Assassin') > 0) {
+                if (this.thisRoom.playersInGame[indexOfRequester].role.indexOf('Assassin') >= 0) {
                     // Just shoot Merlin or Guinevere
                     if (selectedPlayers.length === 1) {
                         if (typeof (selectedPlayers) === 'object' || typeof (selectedPlayers) === 'array') {
@@ -52,29 +52,24 @@ class Assassination {
                         }
 
                         // Get merlin's username
-                        let targetUsername;
                         let targetRole = buttonPressed !== 'yes' ? 'Guinevere' : 'Merlin';
-                        for (var i = 0; i < this.thisRoom.playersInGame.length; i++) {
-                            if (this.thisRoom.playersInGame[i].role === targetRole) {
-                                targetUsername = this.thisRoom.playersInGame[i].username;
-                            }
-                        }
 
                         // set the player shot in the assassin role object
                         this.thisRoom.specialRoles.assassin.playerShot = selectedPlayers;
+                        this.thisRoom.specialRoles['mordred assassin'].playerShot = selectedPlayers;
 
                         if (indexOfTarget !== -1) {
                             if (this.thisRoom.playersInGame[indexOfTarget].role === targetRole) {
                                 this.thisRoom.winner = puckExists ? 'Spy and Puck' : 'Spy';
                                 this.thisRoom.howWasWon = ('Assassinated ' + targetRole + ' correctly.');
 
-                                this.thisRoom.sendText(this.thisRoom.allSockets, `The assassin has shot ${targetUsername} as ${targetRole}! They were correct!`, 'gameplay-text-red');
+                                this.thisRoom.sendText(this.thisRoom.allSockets, `The assassin has shot ${selectedPlayers} as ${targetRole}! They were correct!`, 'gameplay-text-red');
                             } else {
                                 this.thisRoom.winner = puckExists ? 'Resistance and Puck' : 'Resistance';
                                 this.thisRoom.howWasWon = 'Mission successes and assassin shot wrong.';
 
                                 // console.log("THIS WAS RUN ONCE");
-                                this.thisRoom.sendText(this.thisRoom.allSockets, `The assassin has shot ${selectedPlayers} as ${targetRole}! ${selectedPlayers} was not ${targetRole}, ${targetUsername} was ${this.thisRoom.playersInGame[indexOfTarget].role}!`, 'gameplay-text-blue');
+                                this.thisRoom.sendText(this.thisRoom.allSockets, `The assassin has shot ${selectedPlayers} as ${targetRole}! ${selectedPlayers} was not ${targetRole}, ${selectedPlayers} was ${this.thisRoom.playersInGame[indexOfTarget].role}!`, 'gameplay-text-blue');
                             }
 
                             this.finishedShot = true;
@@ -128,6 +123,9 @@ class Assassination {
                         // set the player shot in the assassin role object
                         this.thisRoom.specialRoles.assassin.playerShot = selectedPlayers[0];
                         this.thisRoom.specialRoles.assassin.playerShot2 = selectedPlayers[1];
+
+                        this.thisRoom.specialRoles['mordred assassin'].playerShot = selectedPlayers[0];
+                        this.thisRoom.specialRoles['mordred assassin'].playerShot2 = selectedPlayers[1];
 
                         const correctComboShot = false;
                         if (
@@ -190,7 +188,7 @@ class Assassination {
         let isoldeExists = false;
         let tristanExists = false;
         for (let i = 0; i < this.thisRoom.playersInGame.length; i++) {
-            if (this.thisRoom.playersInGame[i].role.indexOf('Assassin') > 0) {
+            if (this.thisRoom.playersInGame[i].role.indexOf('Assassin') >= 0) {
                 indexOfAssassin = i;
             }
             if (this.thisRoom.playersInGame[i].role === 'Merlin') {
@@ -248,7 +246,7 @@ class Assassination {
     numOfTargets(indexOfPlayer) {
         if (indexOfPlayer !== undefined && indexOfPlayer !== null) {
             // If assassin, one player to select (assassinate)
-            if (this.thisRoom.playersInGame[indexOfPlayer].role.indexOf('Assassin') > 0) {
+            if (this.thisRoom.playersInGame[indexOfPlayer].role.indexOf('Assassin') >= 0) {
                 // Check if Merlin exists.
                 let merlinExists = false;
                 // Check if iso tristan are both in the game.
@@ -293,7 +291,7 @@ class Assassination {
         // Get the index of the assassin
         let indexOfAssassin = -1;
         for (let i = 0; i < this.thisRoom.playersInGame.length; i++) {
-            if (this.thisRoom.playersInGame[i].role.indexOf('Assassin') > 0) {
+            if (this.thisRoom.playersInGame[i].role.indexOf('Assassin') >= 0) {
                 indexOfAssassin = i;
             }
         }

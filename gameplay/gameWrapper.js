@@ -67,10 +67,10 @@ GameWrapper.prototype.finishGame = function(toBeWinner) {
     // If the game actually finished, then run callbacks.
     if (this.finished === true) {
         // Callbacks for announcing winner in all chat.
-        if (this.winner === 'Spy') {
+        if (this.winner === 'Spy' || this.winner === 'Spy and Puck') {
             this.callback("finishGameSpyWin", this); 
         }
-        else if (this.winner === 'Resistance') {
+        else if (this.winner === 'Resistance' || this.winner === 'Resistance and Puck') {
             this.callback("finishGameResWin", this); 
         }
         else {
