@@ -33,6 +33,7 @@ class Assassination {
                         }
                     }
                 }
+                puckExists = puckExists && this.thisRoom.missionHistory.length >= 5;
                 // Check that the person making this request is the assassin
                 const indexOfRequester = usernamesIndexes.getIndexFromUsername(this.thisRoom.playersInGame, socket.request.user.username);
                 if (this.thisRoom.playersInGame[indexOfRequester].role.indexOf('Assassin') >= 0) {

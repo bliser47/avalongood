@@ -32,7 +32,7 @@ VotingMission.prototype.gameMove = function (socket, buttonPressed, selectedPlay
                 if ( this.thisRoom.playersInGame[index].role === 'Bad Lancelot' && this.thisRoom.lancelotsSwitched ) {
                     socket.emit('danger-alert', 'You are Bad Lancelot turned Good! You MUST succeed!');
                     return;
-                } else if ( this.thisRoom.playersInGame[index].alliance === 'Resistance' && (this.thisRoom.playersInGame[index].role !== 'Good Lancelot' || !this.thisRoom.lancelotsSwitched) ) {
+                } else if ( this.thisRoom.playersInGame[index].role !== 'Puck' && (this.thisRoom.playersInGame[index].alliance === 'Resistance' && (this.thisRoom.playersInGame[index].role !== 'Good Lancelot' || !this.thisRoom.lancelotsSwitched)) ) {
                     socket.emit('danger-alert', 'You are resistance! Surely you want to succeed!');
                     return;
                 }
